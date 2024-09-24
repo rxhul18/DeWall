@@ -1,41 +1,50 @@
-import { useState } from "react";
 import { mnemonicToSeed } from "bip39";
-import { derivePath } from "ed25519-hd-key";
-import { Keypair } from "@solana/web3.js";
-import nacl from "tweetnacl";
+import { Wallet, HDNodeWallet } from "ethers";
 import listImage from "../assets/list.png";
 import gridImage from "../assets/grid.png";
+import { useState } from "react";
 
 // eslint-disable-next-line react/prop-types
-export default function SolanaWallet({ mnemonic, walletType }) {
+const EthWallet = ({ mnemonic , walletType}) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [publicKeys, setPublicKeys] = useState([]);
+  const [addresses, setAddresses] = useState([]);
   const [listType, setListType] = useState("list");
 
   const addWallet = async () => {
-    const seed = await mnemonicToSeed(mnemonic); // mnemonicToSeed returns a promise
-    const path = `m/44'/501'/${currentIndex}'/0'`;
-    const derivedSeed = derivePath(path, seed.toString("hex")).key;
-    const secret = nacl.sign.keyPair.fromSeed(derivedSeed).secretKey;
-    const keypair = Keypair.fromSecretKey(secret);
-    const privateKey = keypair.secretKey;
-    // setPublicKeys([...publicKeys, keypair.publicKey.toBase58()]);
-    setPublicKeys([
-      ...publicKeys,
-      {
-        publicKey: keypair.publicKey.toBase58(),
-        privateKey: privateKey.toString(),
-      },
-    ]);
+    // Convert mnemonic to seed
+    const seed = await mnemonicToSeed(mnemonic);
+    // Derivation path for Ethereum wallets (BIP44)
+    const derivationPath = `m/44'/60'/${currentIndex}'/0/0`;
+    // Create an HD wallet node from the seed
+    const hdNode = HDNodeWallet.fromSeed(seed);
+    // Derive the wallet from the specific path
+    const child = hdNode.derivePath(derivationPath);
+    // Get the private key and create a wallet instance
+    const privateKey = child.privateKey;
+    const wallet = new Wallet(privateKey);
+
+    // Update the current index and the list of addresses
     setCurrentIndex(currentIndex + 1);
+    setAddresses([...addresses, wallet.address]);
   };
 
   const clearWallet = () => {
-    setPublicKeys([]);
+    setAddresses([]);
     setCurrentIndex(0);
   };
 
   return (
+    // <div>
+    //   <button onClick={addWallet}>Add ETH wallet</button>
+      
+    //   <div>
+    //     {addresses.map((address, index) => (
+    //       <div key={index}>
+    //         Eth - {address}
+    //       </div>
+    //     ))}
+    //   </div>
+    // </div>
     <div>
       <div className="flex justify-between items-center">
         <h2 className="font-semibold text-4xl pt-5 mb-6">
@@ -72,7 +81,7 @@ export default function SolanaWallet({ mnemonic, walletType }) {
           listType == "list" ? "grid-cols-1" : "grid-cols-2"
         } gap-4 w-100`}
       >
-        {publicKeys.map((data, index) => (
+        {addresses.map((address, index) => (
           <div
             key={index}
             className="bg-black border-[0.9px] border-gray-800 pt-6 my-5 rounded-xl shadow-lg w-[100%]"
@@ -80,11 +89,13 @@ export default function SolanaWallet({ mnemonic, walletType }) {
             <h2 className="text-3xl font-semibold px-6">Wallet {++index}</h2>
             <div className="mt-3 p-6 bg-[#181818] rounded-xl rounded-t-2xl">
               <h2 className="font-semibold text-xl mt-4">Public key</h2>
-              <p className="font-light text-sm mt-1">{data.publicKey}</p>
+              <p className="font-light text-sm mt-1">{address}</p>
             </div>
           </div>
         ))}
       </div>
     </div>
   );
-}
+};
+
+export default EthWallet;

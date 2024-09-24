@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { generateMnemonic } from "bip39";
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react'
+import SolanaWallet from "./SolanaWallet";
+import EthWallet from "./EthWallet";
 
 const WalletGenerator = () => {
 
@@ -12,7 +14,7 @@ const WalletGenerator = () => {
     <main className="flex w-full h-full justify-center">
         <div className="container">
             <h1 className="text-4xl mt-14 font-semibold">DeWall supports multiple blockchains</h1>
-            <h2 className="text-lg mt-2 text-gray-300">Choose a blockchain to get started</h2>
+            <h2 className="text-lg mt-2 text-gray-300">{`${mnemonic == '' ? "Click to get started by creating Secret Recovery" :"Secret Recovery"}`}</h2>
 
             {mnemonic == "" ?
             <button onClick={async function() {
@@ -43,9 +45,12 @@ const WalletGenerator = () => {
             }
 
             {walletType == "" && mnemonic!== "" ? <div className="flex gap-2 mt-5">
-                <button className="bg-white font-light text-black px-6 py-2 rounded-md" >Solana</button>
-                <button className="bg-white font-light text-black px-6 py-2 rounded-md">Ethereum</button>
-            </div>:""}
+                <button className="bg-white font-light text-black px-6 py-2 rounded-md" onClick={()=>(setWalletType('Solana'))}>Solana</button>
+                <button className="bg-white font-light text-black px-6 py-2 rounded-md" onClick={()=>(setWalletType('Ethereum'))}>Ethereum</button>
+            </div>:null}
+                
+            {walletType == 'Solana' && <SolanaWallet mnemonic={mnemonic} walletType={walletType}/>}
+            {walletType == 'Ethereum' && <EthWallet mnemonic={mnemonic} walletType={walletType}/>}
         </div>
     </main>
   )

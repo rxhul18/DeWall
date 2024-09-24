@@ -1,6 +1,6 @@
 const Navbar = () => {
   return (
-    <main className="flex w-full h-16 justify-center">
+    <main className="flex w-full h-[4.5rem] justify-center">
       <nav className="container flex justify-between items-center">
         <div className="flex gap-2 my-4">
           <svg
