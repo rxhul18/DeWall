@@ -1,14 +1,14 @@
-# dewall
+# 🚀 dewall
 
-**dewall** is a decentralized crypto wallet supporting Solana and Ethereum HD wallets. This project uses packages like `bip39`, `@solana/web3.js`, `ethers`, and `ed25519-hd-key` to generate and manage HD wallets. Built with `React` and `Vite`, dewall features a sleek and minimal black-and-white user interface.
+**dewall⛓️‍💥** is a decentralized crypto wallet supporting **Solana** and **Ethereum** HD wallets. Built with `React` and `Vite`, dewall uses key packages like `bip39`, `@solana/web3.js`, `ethers`, and `ed25519-hd-key` to generate and manage HD wallets. The user interface follows a sleek, **black-and-white** minimal design for a clean user experience.
 
-## Features
+## 🌟 Features
 
-- **Solana and Ethereum HD Wallets**: Generate decentralized HD wallets for both blockchains.
-- **Mnemonic Generation**: Uses `bip39` for generating 12-word mnemonics.
-- **Minimal Design**: Simple black-and-white UI for clean and efficient navigation.
+- **Solana and Ethereum HD Wallets**: Decentralized HD wallets for two major blockchains.
+- **Mnemonic Generation**: Generate secure 12-word mnemonics with `bip39`.
+- **Minimal UI Design**: Clean, black-and-white interface for simplicity.
 
-## Tech Stack
+## 🛠️ Tech Stack
 
 - **Frontend**: React, Vite
 - **Blockchain**: Solana, Ethereum
@@ -16,7 +16,9 @@
 
 ## Installation
 
-1. Clone the repository:
+To get started with **dewall**, follow these steps:
+
+1. **Clone the repository:**
    ```bash
    git clone https://github.com/yourusername/dewall.git
    cd dewall
