@@ -2,6 +2,8 @@
 
 **dewall⛓️‍💥** is a decentralized crypto wallet supporting **Solana** and **Ethereum** HD wallets. Built with `React` and `Vite`, dewall uses key packages like `bip39`, `@solana/web3.js`, `ethers`, and `ed25519-hd-key` to generate and manage HD wallets. The user interface follows a sleek, **black-and-white** minimal design for a clean user experience.
 
+## Live demo link: https://de-wall.vercel.app/ 
+
 ## 🌟 Features
 
 - **Solana and Ethereum HD Wallets**: Decentralized HD wallets for two major blockchains.
