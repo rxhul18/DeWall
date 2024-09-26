@@ -3,12 +3,14 @@ import { Wallet, HDNodeWallet } from "ethers";
 import listImage from "../assets/list.png";
 import gridImage from "../assets/grid.png";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 // eslint-disable-next-line react/prop-types
 const EthWallet = ({ mnemonic , walletType}) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [addresses, setAddresses] = useState([]);
   const [listType, setListType] = useState("list");
+  const notify = (meassage) => toast(meassage); 
 
   const addWallet = async () => {
     // Convert mnemonic to seed
@@ -26,6 +28,7 @@ const EthWallet = ({ mnemonic , walletType}) => {
     // Update the current index and the list of addresses
     setCurrentIndex(currentIndex + 1);
     setAddresses([...addresses, wallet.address]);
+    notify(`Wallet ${currentIndex + 1} created`);
   };
 
   const clearWallet = () => {

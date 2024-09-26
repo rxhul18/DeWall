@@ -5,12 +5,14 @@ import { Keypair } from "@solana/web3.js";
 import nacl from "tweetnacl";
 import listImage from "../assets/list.png";
 import gridImage from "../assets/grid.png";
+import { toast } from "react-toastify";
 
 // eslint-disable-next-line react/prop-types
 export default function SolanaWallet({ mnemonic, walletType }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [publicKeys, setPublicKeys] = useState([]);
   const [listType, setListType] = useState("list");
+  const notify = (meassage) => toast(meassage); 
 
   const addWallet = async () => {
     const seed = await mnemonicToSeed(mnemonic); // mnemonicToSeed returns a promise
@@ -28,11 +30,13 @@ export default function SolanaWallet({ mnemonic, walletType }) {
       },
     ]);
     setCurrentIndex(currentIndex + 1);
+    notify(`Wallet ${currentIndex + 1} created`);
   };
 
   const clearWallet = () => {
-    setPublicKeys([]);
-    setCurrentIndex(0);
+      setPublicKeys([]);
+      setCurrentIndex(0);
+      notify('Wallet Cleared Successfully')
   };
 
   return (
