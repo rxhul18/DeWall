@@ -74,12 +74,12 @@ export default function SolanaWallet({ mnemonic, walletType }) {
       <div
         className={`mt-4 grid ${
           listType == "list" ? "grid-cols-1" : "grid-cols-2"
-        } gap-4 w-100`}
+        } gap-4 w-100 mb-9`}
       >
         {publicKeys.map((data, index) => (
           <div
             key={index}
-            className="bg-black border-[0.9px] border-gray-800 pt-6 my-5 rounded-xl shadow-lg w-[100%]"
+            className="bg-black border-[0.9px] border-gray-800 pt-6 my-2 mb-0 rounded-xl shadow-lg w-[100%]"
           >
             <h2 className="text-3xl font-semibold px-6">Wallet {++index}</h2>
             <div className="mt-3 p-6 bg-[#181818] rounded-xl rounded-t-2xl">
